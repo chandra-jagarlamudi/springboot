@@ -43,7 +43,7 @@ public class SurveyControllerIT {
 
 	@Before
 	public void before() {
-		headers.add("Authorization", createHttpAuthenticationHeaderValue("user1", "secret1"));
+		headers.add("Authorization", createHttpAuthenticationHeaderValue("user", "secret"));
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 	}
 
@@ -68,7 +68,7 @@ public class SurveyControllerIT {
 				createURLWithPort("/webapi/v1/surveys/Survey1/questions"),
 				HttpMethod.GET, new HttpEntity<String>("DUMMY_DOESNT_MATTER", headers),
 				new ParameterizedTypeReference<List<Question>>() {
-		});
+				});
 
 		Question sampleQuestion = new Question("Question1", "Largest Country in the World", "Russia",
 				Arrays.asList("India", "Russia", "United States", "China"));

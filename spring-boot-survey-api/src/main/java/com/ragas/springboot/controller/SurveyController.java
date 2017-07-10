@@ -37,12 +37,12 @@ public class SurveyController {
 	}
 
 	@GetMapping("/surveys/{surveyId}/questions")
-	public List<Question> retrieveQuestions(@PathVariable final String surveyId) {
+	public List<Question> getQuestions(@PathVariable final String surveyId) {
 		return surveyService.getQuestions(surveyId);
 	}
 
 	@GetMapping("/surveys/{surveyId}/questions/{questionId}")
-	public Question retrieveDetailsForQuestion(@PathVariable final String surveyId,
+	public Question getDetailsForQuestion(@PathVariable final String surveyId,
 			@PathVariable final String questionId) {
 		return surveyService.getQuestion(surveyId, questionId);
 	}

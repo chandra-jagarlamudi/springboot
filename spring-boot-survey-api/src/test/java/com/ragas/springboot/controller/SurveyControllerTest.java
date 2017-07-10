@@ -40,16 +40,18 @@ public class SurveyControllerTest {
 	private SurveyService surveyService;
 
 	@Test
-	public void retrieveDetailsForQuestion() throws Exception {
+	public void getDetailsForQuestion() throws Exception {
 		Question mockQuestion = new Question("Question1", "Largest Country in the World", "Russia",
 				Arrays.asList("India", "Russia", "United States", "China"));
 
 		Mockito.when(surveyService.getQuestion(Mockito.anyString(), Mockito.anyString())).thenReturn(mockQuestion);
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/surveys/Survey1/questions/Question1")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/webapi/v1/surveys/Survey1/questions/Question1")
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		System.out.println(result.getResponse().getContentAsString());
 
 		String expected = "{id:Question1,description:Largest Country in the World,correctAnswer:Russia}";
 
