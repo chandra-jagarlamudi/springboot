@@ -28,20 +28,23 @@ public class WelcomeController {
 	@Autowired
 	private BasicConfiguration configuration;
 
-	@RequestMapping("/")
+	@RequestMapping("/webapi/v1")
 	public String welcomeMessage() {
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/surveys").build().toUri();
+
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/webapi/v1/surveys").build()
+				.toUri();
 		return welcomeMessage + location.toString();
 	}
 
 	@RequestMapping()
 	public String errorMessage() {
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/surveys").build().toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/webapi/v1/surveys").build()
+				.toUri();
 		return errorMessage + location.toString();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/dynamic-configuration")
+	@RequestMapping("/webapi/v1/dynamic-configuration")
 	public Map dynamicConfiguration() {
 		Map map = new HashMap();
 		map.put("message", configuration.getMessage());

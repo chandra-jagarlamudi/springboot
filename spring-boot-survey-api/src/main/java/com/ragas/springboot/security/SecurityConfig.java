@@ -22,8 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// survey -> USER
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers("/surveys/**").hasRole("USER").antMatchers("/users/**")
-		.hasRole("USER").antMatchers("/**").hasRole("ADMIN").and().csrf().disable().headers().frameOptions()
+		http.httpBasic().and().authorizeRequests().antMatchers("/webapi/v1/surveys/**").hasRole("USER")
+		.antMatchers("/webapi/v1/users/**").hasRole("USER").antMatchers("/webapi/v1/**").hasRole("ADMIN").and()
+		.csrf().disable().headers().frameOptions()
 		.disable();
 	}
 

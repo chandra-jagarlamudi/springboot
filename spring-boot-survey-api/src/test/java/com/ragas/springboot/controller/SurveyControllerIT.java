@@ -53,7 +53,8 @@ public class SurveyControllerIT {
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/surveys/Survey1/questions/Question1"), HttpMethod.GET, entity, String.class);
+				createURLWithPort("/webapi/v1/surveys/Survey1/questions/Question1"), HttpMethod.GET, entity,
+				String.class);
 
 		String expected = "{id:Question1,description:Largest Country in the World,correctAnswer:Russia}";
 
@@ -63,7 +64,8 @@ public class SurveyControllerIT {
 	@Test
 	public void retrieveAllSurveyQuestions() throws Exception {
 
-		ResponseEntity<List<Question>> response = restTemplate.exchange(createURLWithPort("/surveys/Survey1/questions"),
+		ResponseEntity<List<Question>> response = restTemplate.exchange(
+				createURLWithPort("/webapi/v1/surveys/Survey1/questions"),
 				HttpMethod.GET, new HttpEntity<String>("DUMMY_DOESNT_MATTER", headers),
 				new ParameterizedTypeReference<List<Question>>() {
 		});
@@ -82,12 +84,13 @@ public class SurveyControllerIT {
 
 		HttpEntity entity = new HttpEntity<Question>(question, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/surveys/Survey1/questions"),
+		ResponseEntity<String> response = restTemplate.exchange(
+				createURLWithPort("/webapi/v1/surveys/Survey1/questions"),
 				HttpMethod.POST, entity, String.class);
 
 		String actual = response.getHeaders().get(HttpHeaders.LOCATION).get(0);
 
-		assertTrue(actual.contains("/surveys/Survey1/questions/"));
+		assertTrue(actual.contains("/webapi/v1/surveys/Survey1/questions/"));
 
 	}
 
