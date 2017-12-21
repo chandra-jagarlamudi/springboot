@@ -11,8 +11,8 @@ import com.ragas.springboot.domain.Course;
  *
  */
 public interface CourseRepository extends CrudRepository<Course, String> {
+	
 	List<Course> findByTopicId(String topicId);
-
 	List<Course> findByName(String courseName);
 
 }
