@@ -2,6 +2,7 @@ package com.ragas.springboot.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class LessonService {
 		return lessons;
 	}
 
-	public Lesson getLesson(final String id) {
-		return lessonRepository.findOne(id);
+	public Optional<Lesson> getLesson(final String id) {
+		return lessonRepository.findById(id);
 	}
 
 	public void createLesson(final Lesson lesson) {
@@ -37,7 +38,7 @@ public class LessonService {
 	}
 
 	public void deleteLesson(final String id) {
-		lessonRepository.delete(id);
+		lessonRepository.deleteById(id);
 	}
 
 }

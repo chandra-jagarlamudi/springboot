@@ -1,6 +1,7 @@
 package com.ragas.springboot.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ public class LessonController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/topics/{topicId}/courses/{courseId}/lessons/{lessonId}")
-	public Lesson getLesson(@PathVariable final String lessonId) {
+	public Optional<Lesson> getLesson(@PathVariable final String lessonId) {
 		return lessonService.getLesson(lessonId);
 	}
 
