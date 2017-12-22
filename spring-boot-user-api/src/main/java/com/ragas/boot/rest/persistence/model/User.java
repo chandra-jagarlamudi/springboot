@@ -5,26 +5,33 @@ package com.ragas.boot.rest.persistence.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 /**
  * @author Chandra Jagarlamudi
  *
  */
 public class User {
-	
+
 	private Integer id;
+
+	@Size(min=3, message="Name should have at least 3 characters")
 	private String name;
+
+	@Past
 	private Date birthDate;
-	
+
 	protected User() {
 
 	}
-	
+
 	public User(String name, Date birthDate) {
 		super();
 		this.name = name;
 		this.birthDate = birthDate;
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -38,28 +45,28 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * @return the birthDate
 	 */
 	public Date getBirthDate() {
 		return birthDate;
 	}
-	
+
 	/**
 	 * @param birthDate the birthDate to set
 	 */
