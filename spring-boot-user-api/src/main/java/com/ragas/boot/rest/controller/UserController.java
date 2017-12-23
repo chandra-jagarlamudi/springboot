@@ -7,7 +7,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -27,18 +26,31 @@ import com.ragas.boot.rest.exception.UserNotFoundException;
 import com.ragas.boot.rest.persistence.model.User;
 import com.ragas.boot.rest.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * @author Chandra Jagarlamudi
  *
  */
 @RestController
+@Api(value="User Management")
 public class UserController {
 
 	@Autowired
 	UserService userService;
 
+	@ApiOperation(value = "View a list of available users", response = Iterable.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
 	@GetMapping("/users")
-	public List<User> getUsers() {
+	public Iterable<User> getUsers() {
 		return userService.findAll();
 	}
 
