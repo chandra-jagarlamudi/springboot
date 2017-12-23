@@ -6,6 +6,7 @@ package com.ragas.boot.rest;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class SwaggerConfiguration {
 				"Terms of service",
 				new Contact("Chandra Jagarlamudi", "https://www.linkedin.com/in/chandra-jagarlamudi/", "chandra.jagarlamudi@gmail.com"),
 				"Apache License Version 2.0",
-				"https://www.apache.org/licenses/LICENSE-2.0", null);
+				"https://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());
 		return apiInfo;
 	}
 

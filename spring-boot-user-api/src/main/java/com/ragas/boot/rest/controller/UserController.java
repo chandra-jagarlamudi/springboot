@@ -7,6 +7,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -66,13 +67,13 @@ public class UserController {
 
 	@GetMapping("/users/{id}")
 	public Resource<User> getUser(@PathVariable int id) {
-		User newUser = userService.findOne(id);
-		if (null == newUser) {
+		Optional<User> newUser = userService.findOne(id);
+		if (!newUser.isPresent()) {
 			throw new UserNotFoundException(String.format("User with ID %s not found", id));
 		}
 
 		//Creating a resource
-		Resource<User> resource = new Resource<User>(newUser);
+		Resource<User> resource = new Resource<User>(newUser.get());
 
 		//Creating link to all users and adding to the response
 		ControllerLinkBuilder linkToUsers = linkTo(methodOn(this.getClass(), "getUsers"));

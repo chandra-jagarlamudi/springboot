@@ -5,6 +5,10 @@ package com.ragas.boot.rest.persistence.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -12,8 +16,12 @@ import javax.validation.constraints.Size;
  * @author Chandra Jagarlamudi
  *
  */
+@Entity
+@Table(name="USERS")
 public class User {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 
 	@Size(min=3, message="Name should have at least 3 characters")

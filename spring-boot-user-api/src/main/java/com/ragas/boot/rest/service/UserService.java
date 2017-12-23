@@ -4,6 +4,7 @@
 package com.ragas.boot.rest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,6 @@ import com.ragas.boot.rest.persistence.model.User;
 public interface UserService {
 	List<User> findAll();
 	User save(User user);
-	User findOne(int id);
+	Optional<User> findOne(int id);
 	boolean deleteUser(int id);
 }
