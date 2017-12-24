@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ragas.boot.rest;
 
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -29,12 +26,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 
 	@Bean
-	public Docket productApi() {
+	public Docket userApi() {
 		Set<String> consumeAndProduces = new HashSet<>(Arrays.asList("Application/json","Application/XML"));
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("guru.springframework.controllers"))
-				.paths(regex("/"))
+				.apis(RequestHandlerSelectors.basePackage("com.ragas.boot.rest"))
+				.paths(regex("/.*"))
 				.build()
 				.apiInfo(metaData())
 				.consumes(consumeAndProduces)

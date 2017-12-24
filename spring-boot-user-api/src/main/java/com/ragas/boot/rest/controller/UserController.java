@@ -1,12 +1,10 @@
-/**
- * 
- */
 package com.ragas.boot.rest.controller;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -24,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ragas.boot.rest.exception.UserNotFoundException;
+import com.ragas.boot.rest.persistence.model.Post;
 import com.ragas.boot.rest.persistence.model.User;
+import com.ragas.boot.rest.service.PostService;
 import com.ragas.boot.rest.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -43,6 +43,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	PostService postService;
+
 	@ApiOperation(value = "View a list of available users", response = Iterable.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved list"),
@@ -55,6 +58,13 @@ public class UserController {
 		return userService.findAll();
 	}
 
+	@ApiOperation(value = "Create a new User", response = User.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Successfully created user"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
 	@PostMapping("/users")
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 		User newUser = userService.save(user);
@@ -65,6 +75,13 @@ public class UserController {
 		return ResponseEntity.created(newUserLink).build();
 	}
 
+	@ApiOperation(value = "Get a user with ID", response = User.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
 	@GetMapping("/users/{id}")
 	public Resource<User> getUser(@PathVariable int id) {
 		Optional<User> newUser = userService.findOne(id);
@@ -82,13 +99,59 @@ public class UserController {
 		return resource;
 	}
 
+	@ApiOperation(value = "Delete user with ID, if exists")
+	@ApiResponses(value = {
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
 	@DeleteMapping("/users/{id}")
-	public ResponseEntity<Object> deleteUser(@PathVariable int id) {
-		boolean status = userService.deleteUser(id);
-		if (!status) {
+	public void deleteUser(@PathVariable int id) {
+		userService.deleteUser(id);
+	}
+
+	@ApiOperation(value = "Get all posts for a user with ID", response = Iterable.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
+	@GetMapping("/users/{id}/posts")
+	public List<Post> getAllPostsForUser(@PathVariable int id) {
+		Optional<User> userOptional = userService.findOne(id);
+
+		if(!userOptional.isPresent()) {
 			throw new UserNotFoundException(String.format("User with ID %s not found", id));
 		}
-		return ResponseEntity.noContent().build();
+
+		return userOptional.get().getPosts();
+	}
+
+	@ApiOperation(value = "Add posts for a user with ID", response = User.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully created post for the user"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
+	@PostMapping("/users/{id}/posts")
+	public ResponseEntity<Object> createPost(@PathVariable int id, @RequestBody Post post) {
+		Optional<User> userOptional = userService.findOne(id);
+
+		if(!userOptional.isPresent()) {
+			throw new UserNotFoundException(String.format("User with ID %s not found", id));
+		}
+
+		User user = userOptional.get();
+		post.setUser(user);
+		postService.save(post);
+
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId())
+				.toUri();
+
+		return ResponseEntity.created(location).build();
+
 	}
 
 }

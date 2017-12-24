@@ -19,5 +19,5 @@ public interface UserService {
 	List<User> findAll();
 	User save(User user);
 	Optional<User> findOne(int id);
-	boolean deleteUser(int id);
+	void deleteUser(int id);
 }

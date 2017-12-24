@@ -4,10 +4,12 @@
 package com.ragas.boot.rest.persistence.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -29,6 +31,9 @@ public class User {
 
 	@Past
 	private Date birthDate;
+
+	@OneToMany(mappedBy="user")
+	private List<Post> posts;
 
 	protected User() {
 
@@ -122,6 +127,20 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
+	}
+
+	/**
+	 * @return the posts
+	 */
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	/**
+	 * @param posts the posts to set
+	 */
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 }
