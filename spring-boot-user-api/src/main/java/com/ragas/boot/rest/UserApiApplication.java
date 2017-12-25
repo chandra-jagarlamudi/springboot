@@ -16,7 +16,6 @@ public class UserApiApplication {
 		SpringApplication.run(UserApiApplication.class, args);
 	}
 
-	// The below two beans are used for internationalization
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver localeResolver = new SessionLocaleResolver();

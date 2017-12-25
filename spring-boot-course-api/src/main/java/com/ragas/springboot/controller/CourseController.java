@@ -30,8 +30,9 @@ public class CourseController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/topics/{topicId}/courses/{courseId}")
-	public Optional<Course> getCourse(@PathVariable final String courseId) {
-		return courseService.getCourse(courseId);
+	public Course getCourse(@PathVariable final String courseId) {
+		Optional<Course> course = courseService.getCourse(courseId);
+		return course.isPresent() ? course.get(): null;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/topics/{topicId}/courses")
