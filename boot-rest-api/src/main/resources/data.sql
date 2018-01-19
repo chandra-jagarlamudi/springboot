@@ -15,3 +15,7 @@ INSERT INTO PEOPLE_PARTIES VALUES (1, 10001);
 INSERT INTO PEOPLE_PARTIES VALUES (2, 10001);
 INSERT INTO PEOPLE_PARTIES VALUES (1, 10002);
 INSERT INTO PEOPLE_PARTIES VALUES (2, 10003);
+
+INSERT INTO USERS (user_id, username, password, enabled) VALUES ('1', 'chandra@ragas.com', '$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri', true);
+INSERT INTO USERS (user_id, username, password, enabled) VALUES ('2', 'shannon@ragas.com', '$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri', true);
+INSERT INTO USERS (user_id, username, password, enabled) VALUES ('3', 'cheryl@ragas.com', '$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri', true);
