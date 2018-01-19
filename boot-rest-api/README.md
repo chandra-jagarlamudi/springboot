@@ -22,3 +22,10 @@ curl -H "Content-Type: application/json" -X POST -d '{"name":"Mark","age":54}' h
 Delete person based on ID:
 ```
 curl -X DELETE http://localhost:8080/restapi/people/10003
+```
+
+Getting all party information with people from the API:
+```
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8080/restapi/parties
+```
+
