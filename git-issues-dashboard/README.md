@@ -8,5 +8,7 @@ HTTP to HTTPs redirection
 
 URL's
 http://localhost:8080/dashboard
+
 http://localhost:8080/admin
+
 http://localhost:8080/events/{projectName}
