@@ -6,6 +6,7 @@ package com.ragas.springboot.gitissuesdashboard.actuator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import com.ragas.springboot.gitissuesdashboard.github.GithubClient;
 import com.ragas.springboot.gitissuesdashboard.github.RepositoryEvent;
@@ -14,6 +15,7 @@ import com.ragas.springboot.gitissuesdashboard.github.RepositoryEvent;
  * @author Chandra Jagarlamudi
  *
  */
+@Component
 public class GithubHealthIndicator implements HealthIndicator {
 
 	private final GithubClient githubClient;
