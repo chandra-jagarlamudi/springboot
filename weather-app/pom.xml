@@ -7,14 +7,13 @@
 	<artifactId>weather-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<name>weather-app</name>
 	<description>Spring Boot weather app, learning based on SpringOne Platform Keynote</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.0.RELEASE</version>
+		<version>1.5.10.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -83,6 +82,7 @@
 						<goals>
 							<goal>build-info</goal>
 						</goals>
+						<!-- Adds Spring Boot parent version to the build information in actuator -->
 						<configuration>
 							<additionalProperties>
 								<versions.spring-boot>${project.parent.version}</versions.spring-boot>
