@@ -25,3 +25,22 @@ If the **SpringApplication** defaults are not to your taste, you can instead cre
     	app.setBannerMode(Banner.Mode.OFF);
     	app.run(args);
 	}
+
+Here is the custom banner we will create
+
+	###########################################################################
+	+-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+
+	|L| |e| |a| |r| |n| |i| |n| |g|   |S| |p| |r| |i| |n| |g|   |B| |o| |o| |t|
+	+-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+
+	
+	Application Name: learning-spring-boot
+	Application Version: 0.0.1-SNAPSHOT
+	Spring Boot:  (v2.4.5)
+	###########################################################################
+
+
+**Running the application**   
+When you run the application from IDE's like eclipse or IntelliJ you won't be able to see all the new properties added to the banner.txt file, `Application Name` and `Application Version`. To see the new properties you have to `package` and `run` the application through console so that `MANIFEST.MF` is created. `MANIFEST.MF` file has values for the additional fields we added to the banner.txt file.     
+	
+	$ mvn package    
+	$ java -jar .\target\learning-spring-boot-0.0.1-SNAPSHOT.jar
